@@ -5,6 +5,9 @@ import AddBlog from './../pages/AddBlogs/AddBlog';
 import AllBlog from './../pages/AllBlogs/AllBlog';
 import FeaturedBlogs from './../pages/FeaturedBlogs/FeaturedBlogs';
 import Wishlist from './../pages/Wishlists/Wishlist';
+import Register from './../pages/Register/Register';
+import Login from './../pages/Login/Login';
+import AuthLayout from './../layouts/AuthLayout';
 
 const router = createBrowserRouter([
   {
@@ -31,17 +34,22 @@ const router = createBrowserRouter([
       {
         path: '/wishlist',
         element: <Wishlist></Wishlist>
-      },
-      
-      // {
-      //   path: 'register',
-      //   element: <Register></Register>
-      // },
-      // {
-      //   path: 'signIn',
-      //   element: <SignIn></SignIn>
-      // }
+      }
     ]
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login", 
+        element: <Login />,
+      },
+      {
+        path: "register", 
+        element: <Register />,
+      },
+    ],
   },
 ]);
 
