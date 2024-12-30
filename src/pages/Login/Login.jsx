@@ -7,7 +7,7 @@ import { FaGithub } from "react-icons/fa";
 import AuthContext from './../../contexts/AuthContext';
 
 const Login = () => {
-  const { userLogin } = useContext(AuthContext);
+  const { singInUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const auth = getAuth();
@@ -19,7 +19,7 @@ const Login = () => {
     const password = form.password.value;
 
     try {
-      await userLogin(email, password);
+      await singInUser(email, password);
       toast.success("Login successful!");
       navigate("/");
     } catch (err) {
@@ -39,18 +39,6 @@ const Login = () => {
       toast.error("Google login failed!");
     }
   };
-
-  // const handleGitHubLogin = async () => {
-  //   const provider = new GitHubAuthProvider();
-  //   try {
-  //     await signInWithPopup(auth, provider);
-  //     toast.success("Logged in with GitHub!");
-  //     navigate("/");
-  //   } catch (err) {
-  //     setError(err.message);
-  //     toast.error("GitHub login failed!");
-  //   }
-  // };
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 rounded-lg shadow-lg bg-white">

@@ -7,20 +7,20 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     logOut()
-        .then(() => {
+      .then(() => {
             console.log('successful sign out')
         })
         .catch(() => {
             console.log('failed to sign out .stay here. dont leave me alone')
         })
-}
+  }
 
   const links = <>
     <li><NavLink to="/">Home</NavLink></li>
     <li><NavLink to="/addBlogs">Add Blog</NavLink></li>
     <li><NavLink to="/allBlogs">All Blog</NavLink></li>
     <li><NavLink to="/featuredBlogs">Featured Blogs</NavLink></li>
-    <li><NavLink to="/wishlist">Wishlist</NavLink></li>
+    <li><NavLink to="/myWatchlist">Wishlist</NavLink></li>
   </>
   return (
     <div className="navbar bg-base-100">

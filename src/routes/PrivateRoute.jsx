@@ -1,22 +1,20 @@
-import { useContext } from 'react';
-import AuthContext from '../context/AuthContext/AuthContext';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useContext } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import Loading from "../pages/Loading/Loading";
+import AuthContext from './../contexts/AuthContext';
 
 // eslint-disable-next-line react/prop-types
-const PrivateRoute = ({children}) => {
-    const { user, loading } = useContext(AuthContext);
-    const location = useLocation();
-    console.log(location)
+const PrivateRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  const location = useLocation();
 
-    if(loading){
-        return <span className="loading loading-ring loading-lg"></span>
-    }
-
-    if(user){
-        return children
-    }
-
-    return <Navigate to="/signIn" state={location?.pathname}></Navigate>
+  if (loading) {
+    return <Loading></Loading>;
+  }
+  if (user && user?.email) {
+    return children;
+  }
+  return <Navigate state={location.pathname} to={"/auth/login"}></Navigate>;
 };
 
 export default PrivateRoute;

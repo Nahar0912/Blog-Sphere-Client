@@ -4,17 +4,19 @@ import Home from './../pages/Home/Home';
 import AddBlog from './../pages/AddBlogs/AddBlog';
 import AllBlog from './../pages/AllBlogs/AllBlog';
 import FeaturedBlogs from './../pages/FeaturedBlogs/FeaturedBlogs';
-import Wishlist from './../pages/Wishlists/Wishlist';
 import Register from './../pages/Register/Register';
 import Login from './../pages/Login/Login';
 import AuthLayout from './../layouts/AuthLayout';
 import BlogDetailes from './../pages/BlogDetailes/BlogDetailes';
+import Error from './../pages/Error/Error';
+import PrivateRoute from './PrivateRoute';
+import WishList from "../pages/Wishlists/Wishlist";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement: <h2>Route not found</h2>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: '/',
@@ -22,7 +24,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/addBlogs',
-        element: <AddBlog></AddBlog>
+        element: (
+          <PrivateRoute>
+            <AddBlog/>
+          </PrivateRoute>
+        ),
       },
       {
         path: '/allBlogs',
@@ -37,9 +43,13 @@ const router = createBrowserRouter([
         element: <FeaturedBlogs></FeaturedBlogs>
       },
       {
-        path: '/wishlist',
-        element: <Wishlist></Wishlist>
-      }
+        path: "/myWatchlist",
+        element: (
+          <PrivateRoute>
+            <WishList />
+          </PrivateRoute>
+        ),
+      },
     ]
   },
   {
@@ -55,6 +65,10 @@ const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error />, 
   },
 ]);
 

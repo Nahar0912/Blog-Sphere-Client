@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import BlogCard from './../../components/BlogCard';
+import AuthContext from './../../contexts/AuthContext';
+import { toast } from 'react-hot-toast';
 
 const AllBlog = () => {
   const [blogs, setBlogs] = useState([]);
+  const { user } = useContext(AuthContext); 
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -40,22 +43,34 @@ const AllBlog = () => {
     setFilteredBlogs(filtered);
   };
 
-  // Handle adding to wishlist
+  // Add blog to the watchlist
   const handleAddToWishlist = async (blog) => {
+    if (!user) {
+      toast.error("You need to be logged in to add to the watchlist.");
+      return;
+    }
+
+    const blogData = {
+      blogId: blog._id,
+      title: blog.title,
+      image: blog.image,
+      shortDescription: blog.shortDescription,
+      category: blog.category,
+      author: blog.author,
+      userEmail: user.email,
+      userName: user.displayName,
+    };
+
     try {
-      const userEmail = "user@example.com"; // Replace with logged-in user's email
-      const response = await axios.post('http://localhost:5000/watchlist/add', {
-        userEmail,
-        blogId: blog._id,
-        gameTitle: blog.title,
-        gameCover: blog.image,
-        blogDescription: blog.shortDescription,
-        category: blog.category,
-      });
-      alert(response.data.message || 'Blog added to wishlist!');
-    } catch (error) {
-      console.error('Error adding to wishlist:', error);
-      alert(error.response?.data?.error || 'Failed to add to wishlist.');
+      const response = await axios.post("http://localhost:5000/wishlist/add", blogData);
+      if (response.status === 200) {
+        toast.success("Blog added to your watchlist!");
+      } else {
+        toast.error("Failed to add to watchlist.");
+      }
+    } catch (err) {
+      console.error("Error adding to watchlist:", err);
+      toast.error("An error occurred while adding to the watchlist.");
     }
   };
 
@@ -91,7 +106,7 @@ const AllBlog = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filteredBlogs.map((blog) => (
-          <BlogCard key={blog._id} blog={blog} onAddToWishlist={handleAddToWishlist} />
+          <BlogCard key={blog._id} blog={blog} onAddToWishlist={() => handleAddToWishlist(blog)} />
         ))}
       </div>
     </div>
