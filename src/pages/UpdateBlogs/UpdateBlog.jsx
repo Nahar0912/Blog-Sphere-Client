@@ -52,11 +52,7 @@ const UpdateBlog = () => {
     }
 
     try {
-      console.log("Submitting Data:", formData); // Debug log before submission
-      const response = await axios.put(
-        `http://localhost:5000/blogs/update/${id}`,
-        formData
-      );
+      const response = await axios.put(`http://localhost:5000/blogs/update/${id}`,formData);
       console.log("API Response:", response.data); // Debug log for success
       if (response.status === 200) {
         toast.success("Blog updated successfully!");

@@ -20,8 +20,10 @@ const BlogDetails = () => {
       try {
         const response = await axios.get(`http://localhost:5000/blogs/${id}`);
         setBlog(response.data);
-        if (user?.email === response.data.authorEmail) {
-          setIsOwner(true); // Check if the current user is the blog owner
+
+        // Check if the logged-in user is the owner of the blog
+        if (user?.displayName === response.data.author) {
+          setIsOwner(true);
         }
       } catch (error) {
         console.error("Error fetching blog details:", error);
@@ -47,8 +49,8 @@ const BlogDetails = () => {
     try {
       const response = await axios.post("http://localhost:5000/comments/add", {
         blogId: id,
-        userName: user?.name,
-        userProfile: user?.profile || "",
+        userName: user?.displayName,
+        userProfile: user?.photoURL || "",
         commentText: newComment,
       });
       setComments((prev) => [...prev, response.data]);
@@ -65,7 +67,7 @@ const BlogDetails = () => {
         await axios.delete(`http://localhost:5000/blogs/delete/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        navigate("/allBlogs"); 
+        navigate("/allBlogs");
       } catch (error) {
         console.error("Error deleting blog:", error);
       }
@@ -91,6 +93,7 @@ const BlogDetails = () => {
         <p className="text-gray-500">Category: {blog.category}</p>
         <p className="text-gray-500">Author: {blog.author}</p>
 
+        {/* Show Update and Delete buttons only if the user is the owner */}
         {isOwner && (
           <div className="flex gap-4 mt-4">
             <button
