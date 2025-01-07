@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import AuthContext from './../../contexts/AuthContext';
+import AuthContext from "./../../contexts/AuthContext";
 
 const Register = () => {
   const { createNewUser, updateUserProfile } = useContext(AuthContext);
@@ -16,19 +16,30 @@ const Register = () => {
     const password = form.password.value;
     const photoURL = form.photoURL.value;
 
-    if (!/(?=.*[A-Z])/.test(password)) {
-      setError("Password must include an uppercase letter.");
-      toast.error("Password must include an uppercase letter.");
-      return;
-    }
-    if (!/(?=.*[a-z])/.test(password)) {
-      setError("Password must include a lowercase letter.");
-      toast.error("Password must include a lowercase letter.");
-      return;
-    }
+    // Password validation
     if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
       toast.error("Password must be at least 6 characters long.");
+      return;
+    }
+    if (!/(?=.*[A-Z])/.test(password)) {
+      setError("Password must include at least one uppercase letter.");
+      toast.error("Password must include at least one uppercase letter.");
+      return;
+    }
+    if (!/(?=.*[a-z])/.test(password)) {
+      setError("Password must include at least one lowercase letter.");
+      toast.error("Password must include at least one lowercase letter.");
+      return;
+    }
+    if (!/(?=.*\d)/.test(password)) {
+      setError("Password must include at least one numeric character.");
+      toast.error("Password must include at least one numeric character.");
+      return;
+    }
+    if (!/(?=.*[!@#$%^&*])/.test(password)) {
+      setError("Password must include at least one special character.");
+      toast.error("Password must include at least one special character.");
       return;
     }
 
