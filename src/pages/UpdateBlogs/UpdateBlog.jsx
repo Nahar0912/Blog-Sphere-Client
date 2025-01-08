@@ -5,8 +5,8 @@ import { toast } from "react-hot-toast";
 import AuthContext from "../../contexts/AuthContext";
 
 const UpdateBlog = () => {
-  const { user } = useContext(AuthContext); // Get user from AuthContext
-  const { id } = useParams(); // Get blog ID from route parameters
+  const { user } = useContext(AuthContext); 
+  const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
@@ -21,7 +21,7 @@ const UpdateBlog = () => {
     const fetchBlog = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/blogs/${id}`);
-        console.log("Fetched Blog Data:", response.data); // Debug log
+        console.log("Fetched Blog Data:", response.data);
         if (response.data) {
           setFormData(response.data);
         }
@@ -34,29 +34,26 @@ const UpdateBlog = () => {
     fetchBlog();
   }, [id]);
 
-  // Handle input changes in the form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if user is logged in
     if (!user) {
-      console.log("User is not logged in:", user); // Debug log
+      console.log("User is not logged in:", user); 
       toast.error("You need to be logged in to update the blog.");
       return;
     }
 
     try {
       const response = await axios.put(`http://localhost:5000/blogs/update/${id}`,formData);
-      console.log("API Response:", response.data); // Debug log for success
+      console.log("API Response:", response.data);
       if (response.status === 200) {
         toast.success("Blog updated successfully!");
-        navigate(`/blog/${id}`); // Redirect to the updated blog's details page
+        navigate(`/blog/${id}`);
       }
     } catch (error) {
       console.error("Error updating blog:", error.response?.data || error);

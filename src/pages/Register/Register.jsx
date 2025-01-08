@@ -1,51 +1,49 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import AuthContext from "./../../contexts/AuthContext";
+import AuthContext from './../../contexts/AuthContext';
 
 const Register = () => {
-  const { createNewUser, updateUserProfile } = useContext(AuthContext);
+  const { createNewUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
+    const displayName = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
     const photoURL = form.photoURL.value;
 
-    // Password validation
+    if (!/(?=.*[A-Z])/.test(password)) {
+      setError("Password must include an uppercase letter.");
+      toast.error("Password must include an uppercase letter.");
+      return;
+    }
+    if (!/(?=.*[a-z])/.test(password)) {
+      setError("Password must include a lowercase letter.");
+      toast.error("Password must include a lowercase letter.");
+      return;
+    }
+    if (!/(?=.*[0-9])/.test(password)) {
+      setError("Password must include a number.");
+      toast.error("Password must include a number.");
+      return;
+    }
+    if (!/(?=.*[!@#$%^&*])/.test(password)) {
+      setError("Password must include a special character.");
+      toast.error("Password must include a special character.");
+      return;
+    }
     if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
       toast.error("Password must be at least 6 characters long.");
       return;
     }
-    if (!/(?=.*[A-Z])/.test(password)) {
-      setError("Password must include at least one uppercase letter.");
-      toast.error("Password must include at least one uppercase letter.");
-      return;
-    }
-    if (!/(?=.*[a-z])/.test(password)) {
-      setError("Password must include at least one lowercase letter.");
-      toast.error("Password must include at least one lowercase letter.");
-      return;
-    }
-    if (!/(?=.*\d)/.test(password)) {
-      setError("Password must include at least one numeric character.");
-      toast.error("Password must include at least one numeric character.");
-      return;
-    }
-    if (!/(?=.*[!@#$%^&*])/.test(password)) {
-      setError("Password must include at least one special character.");
-      toast.error("Password must include at least one special character.");
-      return;
-    }
 
     try {
-      await createNewUser(email, password);
-      await updateUserProfile({ displayName: name, photoURL });
+      await createNewUser(email, password, displayName, photoURL);
       toast.success("Registration successful!");
       navigate("/");
     } catch (err) {

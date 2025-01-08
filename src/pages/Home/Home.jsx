@@ -1,8 +1,8 @@
 import Newsletter from './../../components/Newsletter';
 import Tips from './../../components/Tips';
-import FeaturedBlog from './../../components/FeaturedBlog';
 import Banner from './../../components/Banner';
 import RecentBlogs from './../../components/RecentBlogs';
+import Testimonials from './../../components/Testimonials';
 
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
       <Banner />
       <RecentBlogs />
       <Tips />
-      <FeaturedBlog />
+      <Testimonials/>
       <Newsletter />
     </div>
   );

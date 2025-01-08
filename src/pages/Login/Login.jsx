@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { FcGoogle } from "react-icons/fc"; 
-import { FaGithub } from "react-icons/fa";
 import AuthContext from './../../contexts/AuthContext';
 
 const Login = () => {
@@ -80,12 +79,6 @@ const Login = () => {
           className="w-full rounded-md text-4xl"
         >
           <FcGoogle/>
-        </button>
-        <button
-          // onClick={handleGitHubLogin}
-          className="w-ful rounded-md text-4xl"
-        >
-          <FaGithub />
         </button>
       </div>
     </div>

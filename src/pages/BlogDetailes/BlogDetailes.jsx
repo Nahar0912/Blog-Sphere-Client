@@ -5,10 +5,9 @@ import { useContext } from "react";
 import AuthContext from './../../contexts/AuthContext';
 
 const BlogDetails = () => {
-  const { id } = useParams(); // Blog ID from URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // Get logged-in user context
-
+  const { user } = useContext(AuthContext); 
   const [blog, setBlog] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -21,7 +20,6 @@ const BlogDetails = () => {
         const response = await axios.get(`http://localhost:5000/blogs/${id}`);
         setBlog(response.data);
 
-        // Check if the logged-in user is the owner of the blog
         if (user?.displayName === response.data.author) {
           setIsOwner(true);
         }
@@ -63,7 +61,7 @@ const BlogDetails = () => {
   const handleDeleteBlog = async () => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       try {
-        const token = user?.accessToken; // Replace with your token logic
+        const token = user?.accessToken; 
         await axios.delete(`http://localhost:5000/blogs/delete/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -75,7 +73,7 @@ const BlogDetails = () => {
   };
 
   const handleUpdateBlog = () => {
-    navigate(`/updateBlogs/${id}`); // Redirect to update page
+    navigate(`/updateBlogs/${id}`); 
   };
 
   if (!blog) return <div>Loading...</div>;
@@ -93,7 +91,6 @@ const BlogDetails = () => {
         <p className="text-gray-500">Category: {blog.category}</p>
         <p className="text-gray-500">Author: {blog.author}</p>
 
-        {/* Show Update and Delete buttons only if the user is the owner */}
         {isOwner && (
           <div className="flex gap-4 mt-4">
             <button

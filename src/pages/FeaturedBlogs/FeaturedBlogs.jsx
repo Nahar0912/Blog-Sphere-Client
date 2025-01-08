@@ -7,32 +7,28 @@ import {
 } from "@tanstack/react-table";
 import axios from "axios";
 
-// Helper Function to Calculate Word Count
 const calculateWordCount = (description) =>
-  description ? description.split(" ").length : 0; // Handle undefined `description`
+  description ? description.split(" ").length : 0;
 
-// Featured Blogs Component
 const FeaturedBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [sorting, setSorting] = useState([]); // Sorting state for the table
+  const [sorting, setSorting] = useState([]);
 
   // Fetch Blogs from API
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/blogs"); // Update API endpoint if needed
+        const response = await axios.get("http://localhost:5000/blogs"); 
         const fetchedBlogs = response.data;
-
-        // Map and sort blogs based on word count
         const processedBlogs = fetchedBlogs
           .map((blog) => ({
             ...blog,
             wordCount: calculateWordCount(blog.longDescription),
           }))
           .sort((a, b) => b.wordCount - a.wordCount)
-          .slice(0, 10); // Keep top 10 blogs
+          .slice(0, 10);
 
         setBlogs(processedBlogs);
       } catch (err) {
@@ -46,7 +42,6 @@ const FeaturedBlogs = () => {
     fetchBlogs();
   }, []);
 
-  // Define Columns
   const columns = useMemo(
     () => [
       {
@@ -65,14 +60,13 @@ const FeaturedBlogs = () => {
     []
   );
 
-  // Use React Table
   const table = useReactTable({
     data: blogs,
     columns,
     state: {
       sorting,
     },
-    onSortingChange: setSorting, // Update sorting state
+    onSortingChange: setSorting, 
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
@@ -90,7 +84,7 @@ const FeaturedBlogs = () => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  onClick={header.column.getToggleSortingHandler()} // Sorting handler
+                  onClick={header.column.getToggleSortingHandler()} 
                   className="px-4 py-2 border font-medium text-left cursor-pointer"
                 >
                   {flexRender(header.column.columnDef.header, header.getContext())}
