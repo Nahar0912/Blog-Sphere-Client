@@ -7,12 +7,6 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     logOut()
-      .then(() => {
-            console.log('successful sign out')
-        })
-        .catch(() => {
-            console.log('failed to sign out .stay here. dont leave me alone')
-        })
   }
 
   const links = <>

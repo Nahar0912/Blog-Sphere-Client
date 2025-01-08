@@ -20,8 +20,7 @@ const UpdateBlog = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/blogs/${id}`);
-        console.log("Fetched Blog Data:", response.data);
+        const response = await axios.get(`https://blog-sphere-server.vercel.app/blogs/${id}`);
         if (response.data) {
           setFormData(response.data);
         }
@@ -43,14 +42,12 @@ const UpdateBlog = () => {
     e.preventDefault();
 
     if (!user) {
-      console.log("User is not logged in:", user); 
       toast.error("You need to be logged in to update the blog.");
       return;
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/blogs/update/${id}`,formData);
-      console.log("API Response:", response.data);
+      const response = await axios.put(`https://blog-sphere-server.vercel.app/blogs/update/${id}`,formData);
       if (response.status === 200) {
         toast.success("Blog updated successfully!");
         navigate(`/blog/${id}`);

@@ -20,7 +20,7 @@ const FeaturedBlogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/blogs"); 
+        const response = await axios.get("https://blog-sphere-server.vercel.app/blogs"); 
         const fetchedBlogs = response.data;
         const processedBlogs = fetchedBlogs
           .map((blog) => ({

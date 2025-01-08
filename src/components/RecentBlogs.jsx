@@ -8,7 +8,7 @@ const RecentBlogs = () => {
   useEffect(() => {
     const fetchRecentBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/blogs"); 
+        const response = await axios.get("https://blog-sphere-server.vercel.app/blogs"); 
         const sortedBlogs = response.data
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .slice(0, 6); 

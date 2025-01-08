@@ -33,7 +33,7 @@ const AddBlog = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/blogs/add", blogData);
+      const response = await axios.post("https://blog-sphere-server.vercel.app/blogs/add", blogData);
       if (response.status === 201) {
         toast.success("Blog added successfully!");
         setFormData({

@@ -17,7 +17,7 @@ const BlogDetails = () => {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/blogs/${id}`);
+        const response = await axios.get(`https://blog-sphere-server.vercel.app/blogs/${id}`);
         setBlog(response.data);
 
         if (user?.displayName === response.data.author) {
@@ -30,7 +30,7 @@ const BlogDetails = () => {
 
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/comments/${id}`);
+        const response = await axios.get(`https://blog-sphere-server.vercel.app/comments/${id}`);
         setComments(response.data);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -45,7 +45,7 @@ const BlogDetails = () => {
     if (!newComment.trim()) return;
 
     try {
-      const response = await axios.post("http://localhost:5000/comments/add", {
+      const response = await axios.post("https://blog-sphere-server.vercel.app/comments/add", {
         blogId: id,
         userName: user?.displayName,
         userProfile: user?.photoURL || "",
@@ -62,7 +62,7 @@ const BlogDetails = () => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       try {
         const token = user?.accessToken; 
-        await axios.delete(`http://localhost:5000/blogs/delete/${id}`, {
+        await axios.delete(`https://blog-sphere-server.vercel.app/blogs/delete/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         navigate("/allBlogs");

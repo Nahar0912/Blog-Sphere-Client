@@ -3,9 +3,11 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import AuthContext from './../contexts/AuthContext';
 import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleAddToWishlist = async () => {
     if (!user) {
@@ -25,7 +27,7 @@ const BlogCard = ({ blog }) => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/wishlist/add", blogData);
+      const response = await axios.post("https://blog-sphere-server.vercel.app/wishlist/add", blogData);
       if (response.status === 200) {
         toast.success("Blog added to your watchlist!");
       } else {
@@ -55,7 +57,7 @@ const BlogCard = ({ blog }) => {
         </button>
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => (window.location.href = `/blog/${blog._id}`)}
+          onClick={() => navigate(`/blog/${blog._id}`)}
         >
           Details
         </button>

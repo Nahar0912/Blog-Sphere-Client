@@ -11,7 +11,7 @@ const AllBlog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/blogs'); 
+        const response = await axios.get('https://blog-sphere-server.vercel.app/blogs'); 
         setBlogs(response.data);
         setFilteredBlogs(response.data);
       } catch (error) {

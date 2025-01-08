@@ -11,7 +11,7 @@ const WishList = () => {
     if (user) {
       const fetchWishlist = async () => {
         try {
-          const response = await axios.get("http://localhost:5000/wishlist", {
+          const response = await axios.get("hhttps://blog-sphere-server.vercel.app/wishlist", {
             params: { userEmail: user.email },
           });
           setWishlist(response.data);
@@ -28,7 +28,7 @@ const WishList = () => {
   const handleDelete = async (blogId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/wishlist/${blogId}`,
+        `https://blog-sphere-server.vercel.app/wishlist/${blogId}`,
         { data: { userEmail: user.email } } // Include user email for verification
       );
       if (response.status === 200) {
