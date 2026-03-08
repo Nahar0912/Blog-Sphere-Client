@@ -73,7 +73,7 @@ The goal of this project is to build a modern blog website with engaging, dynami
 - Tailwind CSS
 
 ### **Back-End**
-- https://github.com/Nahar0912/Blog-Sphere-Client with Express
+- https://github.com/Nahar0912/Blog-Sphere-Server with Express
 - MongoDB
 - Firebase Authentication
 
