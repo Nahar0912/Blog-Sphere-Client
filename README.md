@@ -15,7 +15,7 @@ The goal of this project is to build a modern blog website with engaging, dynami
 ---
 
 ## **Live URL**
-[Live Site Link](https://blogs-sphere-blogsite.netlify.app/)
+https://blogs-sphere-blogsite.netlify.app
 
 ---
 
